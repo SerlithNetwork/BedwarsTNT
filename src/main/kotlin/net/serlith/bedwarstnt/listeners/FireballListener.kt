@@ -72,23 +72,24 @@ class FireballListener (
         val entity = event.entity
         if (event.entityType != EntityType.FIREBALL) return
 
+        val section = this.mainConfig.fireballSection
         event.blockList().toList().forEach { block ->
-            if (block.type !in this.mainConfig.fireballSection.affectedBlocks) {
+            if (block.type !in section.affectedBlocks) {
                 event.blockList().remove(block)
             }
         }
 
         entity.world.players.forEach players@ { player ->
-            if (player.location.distance(entity.location) > this.mainConfig.fireballSection.radius) return@players
+            if (player.location.distance(entity.location) > section.radius) return@players
             player.velocity = player.velocity.add(extraMomentum(
                 player,
                 entity,
-                this.mainConfig.fireballSection.knockback.horizontalExtra,
-                this.mainConfig.fireballSection.knockback.verticalExtra,
-                this.mainConfig.fireballSection.knockback.multiplier
+                section.knockback.horizontalExtra,
+                section.knockback.verticalExtra,
+                section.knockback.multiplier
             ))
-            if (player.velocity.length() > this.mainConfig.fireballSection.knockback.speedLimit) {
-                player.velocity = player.velocity.normalize().multiply(this.mainConfig.fireballSection.knockback.speedLimit)
+            if (player.velocity.length() > section.knockback.speedLimit) {
+                player.velocity = player.velocity.normalize().multiply(section.knockback.speedLimit)
             }
         }
     }

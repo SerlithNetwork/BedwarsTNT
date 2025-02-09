@@ -76,23 +76,24 @@ class TntListener (
         val entity = event.entity
         if (event.entityType != EntityType.PRIMED_TNT) return
 
+        val section = this.mainConfig.tntSection
         event.blockList().toList().forEach { block ->
-            if (block.type !in this.mainConfig.tntSection.affectedBlocks) {
+            if (block.type !in section.affectedBlocks) {
                 event.blockList().remove(block)
             }
         }
 
         entity.world.players.forEach players@ { player ->
-            if (player.location.distance(entity.location) > this.mainConfig.tntSection.radius) return@players
+            if (player.location.distance(entity.location) > section.radius) return@players
             player.velocity = player.velocity.add(extraMomentum(
                 player,
                 entity,
-                this.mainConfig.tntSection.knockback.horizontalExtra,
-                this.mainConfig.tntSection.knockback.verticalExtra,
-                this.mainConfig.tntSection.knockback.multiplier
+                section.knockback.horizontalExtra,
+                section.knockback.verticalExtra,
+                section.knockback.multiplier
             ))
-            if (player.velocity.length() > this.mainConfig.tntSection.knockback.speedLimit) {
-                player.velocity = player.velocity.normalize().multiply(this.mainConfig.tntSection.knockback.speedLimit)
+            if (player.velocity.length() > section.knockback.speedLimit) {
+                player.velocity = player.velocity.normalize().multiply(section.knockback.speedLimit)
             }
         }
     }
