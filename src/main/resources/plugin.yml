@@ -1,0 +1,8 @@
+name: BedwarsTNT
+version: $version
+main: net.serlith.bedwarstnt.BedwarsTNT
+api-version: '1.13'
+authors: [ Biquaternions ]
+website: https://serlith.net
+depend:
+  - KotLib

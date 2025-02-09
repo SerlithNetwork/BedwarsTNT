@@ -1,0 +1,57 @@
+global:
+  # World name
+  world: world
+  # Explosions won't happen within this radius from (0, 0)
+  spawn-protection: 200
+  # Title configuration for cooldowns
+  title:
+    fade-in: 4
+    stay: 6
+    fade-out: 4
+
+tnt:
+  # Players within this radius will be affected
+  radius: 10.0
+  # Cooldown in milliseconds
+  cooldown: 0
+  # Blocks that will break by the explosion
+  affected-blocks:
+    - WOOL
+    - LADDER
+    - WOOD
+    - ENDER_STONE
+  knockback:
+    # Horizontal extra
+    horizontal-extra: 0.0
+    # Vertical extra
+    vertical-extra: 0.5
+    # Overall multiplier
+    multiplier: 1.2
+    # Speed limit by the explosion
+    speed-limit: 4.0
+
+fireball:
+  # Players within this radius will be affected
+  radius: 4.0
+  # Area affected by the explosion
+  yield: 1.5
+  # Fireball Speed
+  speed: 1.2
+  # Distance from origin at which the fireball will despawn
+  despawn-distance: 80
+  # Cooldown in milliseconds
+  cooldown: 2000
+  # Blocks that will break by the explosion
+  affected-blocks:
+    - WOOL
+    - LADDER
+    - WOOD
+  knockback:
+    # Horizontal extra
+    horizontal-extra: 0.0
+    # Vertical extra
+    vertical-extra: 0.75
+    # Overall multiplier
+    multiplier: 0.5
+    # Speed limit by the explosion
+    speed-limit: 4.0
