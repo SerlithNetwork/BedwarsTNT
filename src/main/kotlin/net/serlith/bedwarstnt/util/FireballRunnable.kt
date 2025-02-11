@@ -13,8 +13,7 @@ class FireballRunnable (
 
     override fun run() {
         if (origin.distance(fireball.location) > despawnDistance) {
-            this.fireball.remove()
-            this.fireball
+            if (this.fireball.isValid) this.fireball.remove()
             this.cancel()
         }
 
