@@ -62,9 +62,11 @@ class MainCommand (
                                 .replace("<tnt-h-extra>", "%.2f".format(this.plugin.mainConfig.tntSection.knockback.horizontalExtra))
                                 .replace("<tnt-v-extra>", "%.2f".format(this.plugin.mainConfig.tntSection.knockback.verticalExtra))
                                 .replace("<tnt-multiplier>", "%.2f".format(this.plugin.mainConfig.tntSection.knockback.multiplier))
+                                .replace("<tnt-speed-limit>", "%.2f".format(this.plugin.mainConfig.tntSection.knockback.speedLimit))
                                 .replace("<fireball-h-extra>", "%.2f".format(this.plugin.mainConfig.fireballSection.knockback.horizontalExtra))
                                 .replace("<fireball-v-extra>", "%.2f".format(this.plugin.mainConfig.fireballSection.knockback.verticalExtra))
                                 .replace("<fireball-multiplier>", "%.2f".format(this.plugin.mainConfig.fireballSection.knockback.multiplier))
+                                .replace("<fireball-speed-limit>", "%.2f".format(this.plugin.mainConfig.fireballSection.knockback.speedLimit))
                             )
                         }
                         return true
@@ -72,6 +74,8 @@ class MainCommand (
                     "other" -> {
                         this.plugin.messagesConfig.messagesSection.otherDetails.forEach {
                             sender.sendMessage(it
+                                .replace("<damage-multiplier>", "%.2f".format(this.plugin.mainConfig.globalSection.damageMultiplier))
+                                .replace("<spawn-protection>", this.plugin.mainConfig.globalSection.spawnProtection.toString())
                                 .replace("<tnt-radius>", "%.2f".format(this.plugin.mainConfig.tntSection.radius))
                                 .replace("<tnt-cooldown>", "${this.plugin.mainConfig.tntSection.cooldown}ms")
                                 .replace("<fireball-radius>", "%.2f".format(this.plugin.mainConfig.fireballSection.radius))

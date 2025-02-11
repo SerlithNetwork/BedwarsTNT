@@ -68,7 +68,7 @@ class TntListener (
     fun onEntityDamageEvent(event: EntityDamageEvent) {
         if (event.cause != DamageCause.ENTITY_EXPLOSION && event.cause != DamageCause.BLOCK_EXPLOSION) return
         if (event.entity !is Player) return
-        event.damage /= 4
+        event.damage *= this.plugin.mainConfig.globalSection.damageMultiplier
     }
 
     @EventHandler

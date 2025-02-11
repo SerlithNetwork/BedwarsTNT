@@ -30,6 +30,7 @@ class MainConfig (
     class GlobalConfigSection (
         val world: World,
         val spawnProtection: Long,
+        val damageMultiplier: Double,
         val title: TitleConfigSection,
     ) {
         companion object {
@@ -37,6 +38,7 @@ class MainConfig (
             fun deserialize(section: ConfigurationSection) = GlobalConfigSection(
                 Bukkit.getWorld(section.getString("world")),
                 section.getLong("spawn-protection"),
+                section.getDouble("damage-multiplier"),
                 TitleConfigSection.deserialize(section.getConfigurationSection("title")),
             )
         }

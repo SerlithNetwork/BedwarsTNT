@@ -3,6 +3,8 @@ global:
   world: world
   # Explosions won't happen within this radius from (0, 0)
   spawn-protection: 200
+  # Damage multiplier for explosions
+  damage-multiplier: 0.2
   # Title configuration for cooldowns
   title:
     fade-in: 4
@@ -28,7 +30,7 @@ tnt:
     # Overall multiplier
     multiplier: 1.2
     # Speed limit by the explosion
-    speed-limit: 4.0
+    speed-limit: 2.0
 
 fireball:
   # Players within this radius will be affected
@@ -54,4 +56,4 @@ fireball:
     # Overall multiplier
     multiplier: 0.5
     # Speed limit by the explosion
-    speed-limit: 4.0
+    speed-limit: 1.5
