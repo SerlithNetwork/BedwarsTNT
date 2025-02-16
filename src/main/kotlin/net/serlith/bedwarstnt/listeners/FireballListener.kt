@@ -11,6 +11,7 @@ import org.bukkit.Material
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Fireball
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.entity.EntityExplodeEvent
@@ -31,8 +32,9 @@ class FireballListener (
         this.reload()
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     fun onPlayerInteract(event: PlayerInteractEvent) {
+        if (event.isCancelled) return
         if (event.material != Material.FIREBALL) return
         if (event.action != Action.RIGHT_CLICK_AIR && event.action != Action.RIGHT_CLICK_BLOCK) return
         if (event.player.location.distance(this.spawnLocation) < this.mainConfig.globalSection.spawnProtection) return

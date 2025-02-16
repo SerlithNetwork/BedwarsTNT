@@ -11,6 +11,7 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.entity.TNTPrimed
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityDamageEvent
@@ -33,8 +34,9 @@ class TntListener (
     }
 
     @Suppress("Deprecation")
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     fun onBlockPlace(event: BlockPlaceEvent) {
+        if (event.isCancelled) return
         val block = event.block
         if (block.type != Material.TNT) return
         if (block.location.distance(this.spawnLocation) < this.mainConfig.globalSection.spawnProtection) {
