@@ -94,7 +94,8 @@ class FireballListener (
         val section = this.mainConfig.fireballSection
         event.blockList().toList().forEach { block ->
             match?.let {
-                if (!it.isBreakable(block)) return@forEach
+                if (it.isBreakable(block)) return@let
+                event.blockList().remove(block)
             }
             if (block.type !in section.affectedBlocks) {
                 event.blockList().remove(block)
