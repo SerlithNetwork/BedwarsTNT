@@ -78,10 +78,15 @@ class TntListener (
         val entity = event.entity
         if (event.entityType != EntityType.PRIMED_TNT) return
 
+        val blocks = event.blockList().toList()
+        event.blockList().clear()
+
         val section = this.mainConfig.tntSection
-        event.blockList().toList().forEach { block ->
-            if (block.type !in section.affectedBlocks) {
-                event.blockList().remove(block)
+        this.plugin.server.scheduler.runTaskAsynchronously(this.plugin) {
+            blocks.forEach { block ->
+                if (block.type in section.affectedBlocks) {
+                    block.type = Material.AIR
+                }
             }
         }
 
