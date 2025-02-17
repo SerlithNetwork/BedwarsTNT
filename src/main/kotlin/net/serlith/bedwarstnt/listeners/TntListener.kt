@@ -1,7 +1,5 @@
 package net.serlith.bedwarstnt.listeners
 
-import club.frozed.frost.Frost
-import club.frozed.frost.managers.MatchManager
 import com.cryptomorin.xseries.messages.Titles
 import net.serlith.bedwarstnt.BedwarsTNT
 import net.serlith.bedwarstnt.configs.MainConfig
@@ -30,15 +28,7 @@ class TntListener (
     private lateinit var spawnLocation: Location
     private val lastUsed = mutableMapOf<UUID, Long>()
 
-    private var matchManager: MatchManager? = null
-    private val tntOwners = mutableMapOf<UUID, UUID>()
-
     init {
-        val frost = this.plugin.server.pluginManager.getPlugin("Frost")
-        frost?.let {
-            this.matchManager = (it as Frost).managerHandler.matchManager
-        }
-
         this.plugin.server.pluginManager.registerEvents(this, plugin)
         this.reload()
     }
@@ -74,8 +64,6 @@ class TntListener (
         val primedTnt = event.player.world.spawn(block.location.add(0.5, 0.5, 0.5), TNTPrimed::class.java)
         block.type = Material.AIR
         primedTnt.fuseTicks = 50
-
-        this.tntOwners[primedTnt.uniqueId] = player.uniqueId
     }
 
     @EventHandler
@@ -101,7 +89,6 @@ class TntListener (
                 }
             }
         }
-        this.tntOwners.remove(event.entity.uniqueId)
 
         entity.world.players.forEach players@ { player ->
             if (player.location.distance(entity.location) > section.radius) return@players
@@ -121,7 +108,6 @@ class TntListener (
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
         this.lastUsed.remove(event.player.uniqueId)
-        this.tntOwners.entries.removeIf { it.value == event.player.uniqueId }
     }
 
     override fun reload() {

@@ -1,7 +1,5 @@
 package net.serlith.bedwarstnt.listeners
 
-import club.frozed.frost.Frost
-import club.frozed.frost.managers.MatchManager
 import com.cryptomorin.xseries.messages.Titles
 import net.serlith.bedwarstnt.BedwarsTNT
 import net.serlith.bedwarstnt.configs.MainConfig
@@ -20,7 +18,6 @@ import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.UUID
-import kotlin.collections.set
 
 class FireballListener (
     private val plugin: BedwarsTNT,
@@ -30,15 +27,7 @@ class FireballListener (
     private lateinit var spawnLocation: Location
     private val lastUsed = mutableMapOf<UUID, Long>()
 
-    private var matchManager: MatchManager? = null
-    private val fireballOwners = mutableMapOf<UUID, UUID>()
-
     init {
-        val frost = this.plugin.server.pluginManager.getPlugin("Frost")
-        frost?.let {
-            this.matchManager = (it as Frost).managerHandler.matchManager
-        }
-
         this.plugin.server.pluginManager.registerEvents(this, plugin)
         this.reload()
     }
@@ -72,8 +61,6 @@ class FireballListener (
         if (player.itemInHand.amount == 1) player.itemInHand = null
         else player.itemInHand.amount -= 1
 
-        this.fireballOwners[fireball.uniqueId] = player.uniqueId
-
         FireballRunnable(
             fireball,
             event.player.location,
@@ -98,7 +85,6 @@ class FireballListener (
                 }
             }
         }
-        this.fireballOwners.remove(event.entity.uniqueId)
 
         entity.world.players.forEach players@ { player ->
             if (player.location.distance(entity.location) > section.radius) return@players
@@ -118,7 +104,6 @@ class FireballListener (
     @EventHandler
     fun onPlayerQuit(event: PlayerQuitEvent) {
         this.lastUsed.remove(event.player.uniqueId)
-        this.fireballOwners.entries.removeIf { it.value == event.player.uniqueId }
     }
 
     override fun reload() {
