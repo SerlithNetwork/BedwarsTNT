@@ -2,6 +2,8 @@
 <img src="assets/bedwars_tnt.svg" height="256">
 </div>
 
+# This plugin was completely EXPERIMENTAL, it's not meant to be used in production. It served its purpose and it's no longer mantained.
+
 # 💥 Bedwars TNT 💥
 Small plugin intended to be used in Practice Servers to replicate TNT and Fireball behavior from Bedwars
 
